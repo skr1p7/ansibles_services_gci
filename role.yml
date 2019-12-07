@@ -1,0 +1,32 @@
+---
+- name: Apache service cycle
+  hosts: localhost
+  become: true
+  become_user: root
+  tasks:
+    - name: Starting apache server 
+      systemd:
+        name: apache2
+        enabled: yes
+        masked: no
+    - name: Status of apache server
+      systemd:
+        name: apache2
+        state: started
+    - name: Stopping apache server 
+      systemd:
+        name: apache2
+        state: stopped
+    - name: Status of apache server
+      systemd:
+        state: stopped
+        name: apache2
+    - name: Restarting apache server 
+      systemd:
+        name: apache2
+        enabled: yes
+        masked: no
+    - name: Status of apache server
+      systemd:
+        state: started
+        name: apache2
